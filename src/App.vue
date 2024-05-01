@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import AutoForm from "./components/AutoForm.vue";
 import {z} from "zod";
-import {makeDeepPartial} from "./Utils/zodUtilities.ts";
+import {makeDeepPartial} from "./utils/zodUtilities.ts";
 
 const user = z.object({
   username: z.string(),
