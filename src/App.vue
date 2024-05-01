@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import AutoForm from "./components/AutoForm.vue";
 import {z} from "zod";
-import {makeDeepPartial} from "./utils/zodUtilities.ts";
 
 const user = z.object({
   username: z.string(),
@@ -12,11 +11,20 @@ const user = z.object({
   strings: z.array(z.object({ value: z.string() })),
 });
 
-console.log(makeDeepPartial(user));
 </script>
 
 <template>
-
-  <AutoForm/>
+<div class="myForm">
+  <AutoForm :zod-schema="user"/>
+</div>
 </template>
 
+<style scoped>
+.myForm{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  width: 50vw;
+}
+</style>
