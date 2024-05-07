@@ -3,7 +3,7 @@ import AutoForm from "./components/AutoForm.vue";
 import {z} from "zod";
 
 const user = z.object({
-  username: z.string(),
+  username: z.string().min(3).max(20),
   location: z.object({
     latitude: z.number(),
     longitude: z.number(),
@@ -14,9 +14,9 @@ const user = z.object({
 </script>
 
 <template>
-<div class="myForm">
-  <AutoForm :zod-schema="user"/>
-</div>
+  <div class="myForm">
+    <AutoForm :zod-schema="user" />
+  </div>
 </template>
 
 <style scoped>
