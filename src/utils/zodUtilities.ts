@@ -33,7 +33,7 @@ export const makeFormObject = (obj) => {
         else if (zodSchema instanceof ZodNumber) {
             myObj[value] = {
             zodSchema: obj[value],
-            modelValue: "",
+            modelValue: 0,
             label: value,
             type: 'number'
             };

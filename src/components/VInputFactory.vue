@@ -11,9 +11,11 @@ const props = defineProps(
 )
 const refData = ref({ ...props.inputData });
 const errorMessages = ref("");
+
 const validateInput = (input: any) => {
   try {
-    const result = refData.value.zodSchema.safeParse(input); // => { success: true; data: "tuna" }
+    if (refData.value.type === "number") input = Number(input)
+    const result = refData.value.zodSchema.safeParse(input);
     if (!result.success) {
       const formatted = result.error.format();
       errorMessages.value = formatted?._errors
@@ -29,15 +31,15 @@ const validateInput = (input: any) => {
 const resetErrorMessages = (enter: boolean) => {
   enter && refData.value.modelValue ? validateInput(refData.value.modelValue):errorMessages.value = "";
 }
-
+const isSimpleTextFields = (input: any) => {
+  return input.type === "string" || input.type === "number" || input.type === "boolean";
+}
 </script>
 
 <template>
-  <div>
-    <v-text-field v-if="inputData.type === 'string'" v-model="refData.modelValue" :label="inputData.label"
+    <v-text-field v-if="isSimpleTextFields(inputData)" :type="inputData.type" v-model="refData.modelValue" :label="inputData.label"
       @update:model-value="validateInput" :error-messages="errorMessages"
       @update:focused="resetErrorMessages" />
-  </div>
 </template>
 
 <style scoped></style>

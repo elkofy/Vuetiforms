@@ -4,6 +4,7 @@ import {z} from "zod";
 
 const user = z.object({
   username: z.string().min(3).max(20),
+  age: z.number().int().positive(),
   location: z.object({
     latitude: z.number(),
     longitude: z.number(),

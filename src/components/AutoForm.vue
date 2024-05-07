@@ -20,6 +20,7 @@ console.log(model.value);
 <template>
   <v-form @submit.prevent class="w-100">
     <div v-for="(value, key) in model" :key="key">
+      {{ value.type }}
       <VInputFactory :inputData="value"/>
     </div>
   </v-form>
