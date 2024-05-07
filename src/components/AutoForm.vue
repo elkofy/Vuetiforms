@@ -14,15 +14,19 @@ const props = defineProps(
 )
 const form = ref(makeDeepPartial(props.zodSchema));
 const model = ref(makeFormObject(form.value));
-console.log(model.value);
+const formObject = ref({});
+const sendObject = () => {
+  console.log(formObject.value);
+}
 </script>
 
 <template>
+  {{ formObject }}
   <v-form @submit.prevent class="w-100">
     <div v-for="(value, key) in model" :key="key">
-      {{ value.type }}
-      <VInputFactory :inputData="value"/>
+      <VInputFactory :inputData="value" v-model="formObject[key]"/>
     </div>
+    <v-btn class="mt-2" type="submit" @click="sendObject" block >Submit</v-btn>
   </v-form>
 </template>
 

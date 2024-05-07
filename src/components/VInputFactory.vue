@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 const props = defineProps(
   {
@@ -9,7 +9,9 @@ const props = defineProps(
     },
   }
 )
+const model = defineModel()
 const refData = ref({ ...props.inputData });
+model.value = refData.value.modelValue;
 const errorMessages = ref("");
 
 const validateInput = (input: any) => {
@@ -20,7 +22,7 @@ const validateInput = (input: any) => {
       const formatted = result.error.format();
       errorMessages.value = formatted?._errors
     }
-    else{
+    else {
       errorMessages.value = "";
     }
   }
@@ -29,17 +31,22 @@ const validateInput = (input: any) => {
   }
 }
 const resetErrorMessages = (enter: boolean) => {
-  enter && refData.value.modelValue ? validateInput(refData.value.modelValue):errorMessages.value = "";
+  enter && model.value ? validateInput(model.value) : errorMessages.value = "";
 }
 const isSimpleTextFields = (input: any) => {
+  if (!input) return false;
   return input.type === "string" || input.type === "number" || input.type === "boolean";
 }
+
 </script>
 
 <template>
-    <v-text-field v-if="isSimpleTextFields(inputData)" :type="inputData.type" v-model="refData.modelValue" :label="inputData.label"
-      @update:model-value="validateInput" :error-messages="errorMessages"
-      @update:focused="resetErrorMessages" />
+  <v-text-field v-if="isSimpleTextFields(inputData)" :type="inputData.type" v-model="model"
+    :label="inputData.label" @update:model-value="validateInput" :error-messages="errorMessages"
+    @update:focused="resetErrorMessages" />
+  <template v-if="!inputData.type">
+    <template v-for="(value, key) in inputData" :key="key">
+      <VInputFactory :inputData="value" v-model="value.modelValue" @update:model-value="$emit('update:modelValue',$event)" />
+    </template>
+  </template>
 </template>
-
-<style scoped></style>

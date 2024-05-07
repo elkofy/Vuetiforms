@@ -6,10 +6,9 @@ const user = z.object({
   username: z.string().min(3).max(20),
   age: z.number().int().positive(),
   location: z.object({
-    latitude: z.number(),
-    longitude: z.number(),
+    latitude: z.number().min(-90).max(90),
+    longitude: z.number().min(-180).max(180),
   }),
-  strings: z.array(z.object({ value: z.string() })),
 });
 
 </script>

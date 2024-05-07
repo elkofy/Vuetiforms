@@ -14,6 +14,7 @@ export const makeFormObject = (obj) => {
     const myObj = {...obj};
      Object.keys(obj).map((value)=>{
         const zodSchema = obj[value];
+        
         if ( zodSchema instanceof ZodObject) {
             myObj[value] = {
             zodSchema: obj[value],
@@ -53,6 +54,11 @@ export const makeFormObject = (obj) => {
             label: value,
             type: 'array'
             };
+        }
+        else if ( zodSchema instanceof Object) {
+            console.log(zodSchema);
+            
+            myObj[value] = makeFormObject(obj[value]);
         }
         else {
             myObj[value] = {
