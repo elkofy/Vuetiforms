@@ -88,3 +88,5 @@ export const formatFormObject = (obj: any) => {
     })
     return myObj;
 }
+
+export default {makeFormObject, formatFormObject, makeDeepPartial};

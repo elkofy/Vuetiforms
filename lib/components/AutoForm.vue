@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {formatFormObject, makeDeepPartial, makeFormObject} from "../utils/zodUtilities.ts";
+import {formatFormObject, makeDeepPartial, makeFormObject} from "../utils/zodUtilities";
 import {ref} from "vue";
 import {ZodObject} from "zod";
 import VInputFactory from "./VInputFactory.vue";

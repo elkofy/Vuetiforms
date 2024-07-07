@@ -1,23 +1,35 @@
 {
   "name": "vuetiforms",
-  "private": true,
-  "version": "0.0.0",
+  "private": false,
+  "version": "0.0.5",
   "type": "module",
+  "files": ["dist"],
+  "main": "./dist/vuetiforms.umd.cjs",
+  "module": "./dist/vuetiforms.js",
+  "exports": {
+    ".": {
+      "import": "./dist/vuetiforms.js",
+      "require": "./dist/vuetiforms.cjs"
+    }
+  },
+  "types": "./dist/index.d.ts",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc && vite build",
+    "build": "vite build && vue-tsc --emitDeclarationOnly",
     "preview": "vite preview",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src",
     "format": "prettier .  --write"
   },
   "dependencies": {
+    "vite-plugin-dts": "^3.9.1",
     "vue": "^3.4.21",
     "vuetify": "^3.5.17",
     "zod": "^3.23.3"
   },
   "devDependencies": {
     "@mdi/font": "^7.4.47",
-    "@vitejs/plugin-vue": "^5.0.4",
+    "@types/node": "^20.14.10",
+    "@vitejs/plugin-vue": "^5.0.5",
     "eslint": "^9.2.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-vue": "^9.25.0",
@@ -25,5 +37,9 @@
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
     "vue-tsc": "^2.0.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/elkofy/Vuetiforms"
   }
 }
